@@ -1,0 +1,376 @@
+{% extends 'base.html' %}
+{% block content %}
+<head>
+    <style>
+        /* Basic reset */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;           
+        }
+
+        /* Container holding sidebar, content, and footer */
+        .container {
+            display: flex; /* Use flexbox for horizontal layout */
+            max-width: 1200px; /* Maximum width in pixels */
+            max-height: 800px; /* Maximum height in pixels */
+            margin: 0;
+            padding: 0; /* No padding for the container */
+            justify-content: center;                  
+            
+        }
+
+        /* Sidebar styles */
+        .sidebar {            
+            margin: 10px;
+            background-color: #343a40;
+            color: #fff;
+            width: 250px; /* Fixed width for sidebar */
+            padding: 10px;
+            min-height: 100vh; /* Full height */
+            border-radius: 5px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            
+        }
+
+        .sidebar ul li {
+            margin: 10px 0;
+        }
+
+        .sidebar ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        .sidebar ul li a:hover {
+    color: #007bff; /* Bootstrap primary color */
+}
+
+        /* Main content styles */
+        .main-content {
+    flex-grow: 1; /* Allows main content to take all remaining space */
+    border-radius: 10px;
+    padding: 20px; /* Padding for main content */
+    background-color: #fff;
+    width: 100%; /* Full width */
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Disable horizontal scrolling */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);  /* Box shadow for main content */
+    height: calc(100vh - 40px); /* Full height minus padding from top and bottom */
+}
+
+        /* New Div Styles */
+        .right-sidebar {
+            background-color: #f8f9fa; /* Light background for the new div */
+            width: 250px; /* Fixed width for the new div */
+            padding: 20px; /* Padding for the new div */
+            min-height: 100vh; /* Full height */
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);  /* Box shadow for the new div */
+        }
+
+        .footer {
+            background-color: #333; /* Footer background color */
+            color: #fff; /* Footer text color */
+            padding: 10px; /* Padding for footer */
+            text-align: center; /* Centered text */
+            width: 100%; /* Full width */
+        }
+
+        .card-img-top {
+            width: 100%;
+            height: 150px; /* Fixed height for image */
+            object-fit: cover; /* Ensures the image covers the entire area without distortion */
+        }
+
+        .card {
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+
+        .card:hover {
+            transform: scale(1.05); /* Zoom effect on hover */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Box shadow on hover */
+        }
+
+        .card-title {
+            color: #1e1e1e; /* Dark color for the product name */
+        }
+
+        .card-text {
+            color: #333; /* Slightly lighter text color */
+        }
+
+        .btn-primary {
+            background-color: #28a745; /* Green for the add-to-cart button */
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #218838; /* Darker green on hover */
+        }
+
+        /* Modal image styling */
+        .modal-body img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .main-content h1 {
+            margin-bottom: 20px;
+        }
+
+        .main-content p {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+        .dropdown-item {
+        display: flex; /* Make items flexible for icon alignment */
+        align-items: center; /* Center items vertically */
+        padding: 10px 15px; /* Padding for dropdown items */
+        transition: background-color 0.3s; /* Smooth background transition */
+}
+
+/* Change background on hover */
+.dropdown-item:hover {
+    background-color: #3a3a3a; /* Lighter background on hover */
+    color: #ffffff; /* Keep text white on hover */
+}
+
+/* Icon styles */
+.dropdown-item i {
+    margin-right: 10px; /* Space between icon and text */
+    color: #ffffff; /* Icon color */
+}
+
+/* Divider styles */
+.dropdown-divider {
+    border-top: 1px solid rgba(255, 255, 255, 0.2); /* Light divider */
+}
+.hover-bg {
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.hover-bg:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Light background on hover */
+    transform: translateX(5px); /* Slide effect */
+}
+
+.dropdown-menu {
+    border-radius: 0.5rem; /* Rounded corners for dropdown */
+}
+
+.dropdown-item:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Dropdown item hover effect */
+}
+.search-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;     
+     
+    }
+.search-box {
+      background: white;
+      padding: 10px 20px;
+      border-radius: 30px;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .search-box input {
+      border: none;
+      outline: none;
+      flex-grow: 1;
+      border-radius: 30px;
+      padding-left: 10px;
+      font-size: 14px;
+    }
+
+    .search-box input::placeholder {
+      color: #888;
+    }
+
+    .search-box button {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      padding: 5px 15px;
+      cursor: pointer;
+      font-size: 14px;
+      margin-left: 10px;
+    }
+
+    .search-box button:hover {
+      background-color: #218838;
+    }
+
+    .search-box i {
+      color:white;
+      margin-right: 10px;
+    }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <nav class="sidebar bg-dark text-white p-4">
+        <div class="dropdown pb-4">
+            <a class="nav-link dropdown-toggle text-white" href="#" id="hamburgerMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fas fa-bars fa-lg"></i> {{user.username}} <!-- Hamburger icon -->
+            </a>
+            <hr class="bg-light">
+            <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="hamburgerMenu">
+                {% if user.is_authenticated%}
+                <li>
+                    <a class="dropdown-item" href="#">
+                        <i class="fas fa-plus-circle"></i> New project...
+                    </a>
+                </li>
+              
+                <li>
+                    <a class="dropdown-item" href="#">
+                        <i class="fas fa-edit"></i> Update
+                    </a>
+                </li>
+              
+                <li>
+                    <a class="dropdown-item" href="{% url 'user_profile' %}">
+                        <i class="fas fa-user-circle"></i> Profile
+                    </a>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                    <a class="dropdown-item" href="{% url 'logout' %}">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    
+        <ul class="list-unstyled">
+            <li class="mb-3">
+                <a class="text-white text-decoration-none d-flex align-items-center p-2 rounded hover-bg" href="#services">
+                    <i class="fas fa-concierge-bell me-2"></i> Services
+                </a>
+            </li>
+            <li class="mb-3">
+                <a class="text-white text-decoration-none d-flex align-items-center p-2 rounded hover-bg" href="#about">
+                    <i class="fas fa-info-circle me-2"></i> About
+                </a>
+            </li>
+            <li class="mb-3">
+                <a class="text-white text-decoration-none d-flex align-items-center p-2 rounded hover-bg" href="#contact">
+                    <i class="fas fa-envelope me-2"></i> Contact
+                </a>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="mb-3">
+                <a class="text-white text-decoration-none d-flex align-items-center p-2 rounded hover-bg" href="#orders">
+                    <i class="fas fa-shopping-cart me-2"></i> Orders
+                </a>
+            </li>
+            {% endif%}
+            <li class="divider"><hr class="bg-light"></li> <!-- Divider -->            
+        </ul>
+    </nav>
+    
+    
+
+    <div class="main-content">
+        <div class="search-container">
+            <div class="search-box">
+              
+              <input type="text" placeholder="Search for something...">
+              <button type="submit"><i class="fas fa-search"></i></button>
+            </div>
+          </div>
+        <div class="row justify-content-center mt-5">
+            {% for product in all_products %}
+            <div class="col-md-4 mb-4">
+                <!-- Product Card -->
+                <div class="card shadow-sm">
+                    <!-- Product Image -->
+                    <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }} Image" data-bs-toggle="modal" data-bs-target="#modal{{ product.id }}">
+                    <!-- Product Information -->
+                    <div class="card-body text-center">
+                        <h6 class="card-title">{{ product.name }}</h6>
+                        <p class="card-text">Price:{{ product.price }}</p>
+                        <!-- Add to Cart Button -->
+                        <form method="post" action="{% url 'add_to_cart' product.id %}">
+                            {% csrf_token %}
+                            {% if user.is_authenticated%}
+                            <button type="submit" class="btn btn-primary"><i class="bi-cart-fill me-1">&nbsp;cart</i></button>
+                            {% endif %}
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal for Image Viewing -->
+            <div class="modal fade" id="modal{{ product.id }}" tabindex="-1" role="dialog" aria-labelledby="modalLabel{{ product.id }}" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalLabel{{ product.id }}">{{ product.name }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <img src="{{ product.image.url }}" class="img-fluid" alt="{{ product.name }} Image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- New Right Sidebar Div -->
+    <div class="right-sidebar p-3">
+        {% if user.is_authenticated%}
+        <div class="greeting-badge d-flex align-items-center mb-3 p-3 border rounded bg-light shadow-sm">
+            <span style="font-size: 1rem;">😄</span> <!-- Colorful smiling emoji -->
+            <span class="ms-2" style="font-size: 1rem; font-weight: bold; color: #007bff;">Hi,{{ user.username }}!</span>
+            </div>
+            <div class="card border-light shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title text-primary">Welcome to Your Dashboard!</h5>
+                <p class="card-text">Explore the features and manage your account effectively. Enjoy your experience!</p>
+                </div>
+        </div>
+        {% else %}
+        <div class="greeting-badge d-flex align-items-center mb-3 p-3 border rounded bg-light shadow-sm">
+            <span style="font-size: 1rem;">👋</span> <!-- Waving hand emoji -->
+            <span class="ms-2" style="font-size: 1rem; font-weight: bold; color: #000000;">Hi,Guest!</span>
+        </div>
+        <div class="card border-light shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title" style="color: #000000;">Welcome to Our Platform!</h5>
+                <p class="card-text">Please log in or to enjoy more features!</p> 
+                                         
+            </div>
+            <a class="btn-link" href="{% url 'signup' %}">
+                <i class="bi bi-person-plus"></i> Get started
+            </a> 
+        </div>
+        {% endif %}
+    </div>
+</body>
+{% endblock %}

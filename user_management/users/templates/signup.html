@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block title %}Sign Up | E-commerce{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="min-height: 100vh; background-color: #F3F4F6;">
+    <div class="card shadow-lg p-4" style="width: 400px; border-radius: 15px; background-color: #FFFFFF;">
+        <div class="card-header text-center border-0 mb-4">
+            <h4 class="fw-bold" style="color: #FF5722;">Create Your Account</h4>
+            <p style="color: #777;">Join our community to unlock exciting features</p>
+        </div>
+        <div class="card-body">
+            <form method="post" action="{% url 'signup' %}" class="needs-validation" novalidate>
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    {{ form.username }}
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    {{ form.email }}
+                </div>
+                <div class="mb-3">
+                    <label for="password1" class="form-label">Password</label>
+                    {{ form.password1 }}
+                </div>
+                <div class="mb-4">
+                    <label for="password2" class="form-label">Confirm Password</label>
+                    {{ form.password2 }}
+                </div>
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-danger btn-lg rounded-pill"><i class="bi bi-person-plus">&nbsp;Sign-Up</i></button>
+                </div>
+            </form>
+            
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Overall body styling */
+    body {
+        background-color: #F3F4F6;
+        font-family: 'Arial', sans-serif;
+        color: #333;
+    }
+
+    /* Card styling */
+    .card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Button styling */
+    .btn-danger {
+        background-color: #FF5722;
+        border: none;
+        transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .btn-danger:hover {
+        background-color: #E64A19;
+        transform: translateY(-2px);
+    }
+
+    /* Input field styling */
+    .form-control {
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        transition: border-color 0.3s;
+    }
+
+    .form-control:focus {
+        border-color: #FF5722;
+        box-shadow: 0 0 5px rgba(255, 87, 34, 0.5);
+    }
+
+    /* Typography */
+    .form-label {
+        font-weight: bold;
+        color: #444;
+    }
+
+    /* Link styling */
+    .text-decoration-none:hover {
+        text-decoration: underline;
+        color: #E64A19;
+    }
+</style>
+{% endblock %}

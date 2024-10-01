@@ -1,0 +1,33 @@
+{% extends 'base.html'%}
+{% block content %}
+<style>
+    .card-hover {
+        transition: transform 0.2s;
+    }
+    .card-hover:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }  
+</style>
+<div class="container mt-5">           
+    <div class="row">        
+        <div class="col-md-6 mb-4">
+            <div class="card card-hover">
+                <div class="card-body">
+                    <h5 class="card-title">{{ profiles.username }}</h5>
+                    <p class="card-text">{{ profiles.email }}</p>
+                    
+                    <p class="card-text">
+                        <small class="text-muted">Joined on {{ profiles.date_joined }}</small>
+                    </p>  
+                    <button type="button" class="btn btn-outline-success">More-info</button>                     
+                </div>                    
+            </div>
+            
+        </div>            
+       
+    </div>
+</div>
+{% endblock %}
+    
+
