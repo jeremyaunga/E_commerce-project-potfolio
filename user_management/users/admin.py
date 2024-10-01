@@ -3,7 +3,7 @@ from users.models import CustomerProfile,Product,Cartitem,Payment,Catergory,Orde
 
 
 
-# Register your models here.
+# Register your models.
 class CustomerProfileAdmin(admin.ModelAdmin):
     list_display = ('extended_user', 'phone_number', 'date_joined')  # Fields to display
     search_fields = ('extended_user__username', 'phone_number')  # Fields to search by
